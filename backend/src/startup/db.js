@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 export const connectDB = async () => {
   try {
-    await db.sequelize.sync({ force: flase, alter: false });
+    await db.sequelize.sync({ force: false, alter: false });
     const role = await db.Role.findAll({});
     if (role.length < 1) {
       initial();
