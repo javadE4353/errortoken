@@ -13,7 +13,7 @@ export const fatchCategorysPublic = createAsyncThunk(
   "categorys/fatchCategorysPublic",
   async () => {
     const res = await axiospublic.get(`/category`);
-    return res.data.data;
+    return res.data.data.categorys;
   }
 );
 
@@ -128,9 +128,7 @@ type Initialstate = {
 
 const initialState: Initialstate = {
   categorys: [],
-  categoryPublic: localStorage.getItem("allCategorys")
-    ? JSON.parse(localStorage.getItem("allCategorys") || `[]`)
-    : [],
+  categoryPublic:[],
   update: 0,
   delete: 0,
   insert: 0,
@@ -163,13 +161,9 @@ const categorySlice = createSlice({
       })
       .addCase(
         fatchCategorysPublic.fulfilled,
-        (state, action: PayloadAction<{ categorys: Categories[] }>) => {
+        (state, action: PayloadAction<Categories[]>) => {
           state.isLoading = false;
-          state.categoryPublic = action.payload.categorys;
-          localStorage.setItem(
-            "allCategorys",
-            JSON.stringify(action.payload.categorys)
-          );
+          state.categoryPublic = action.payload;
         }
       )
       .addCase(fatchCategorysPublic.rejected, (state, action) => {

@@ -186,28 +186,11 @@ const ViewTableUser = () => {
     setPageinationAtom(1);
   }, [toggleSidebarFilterM]);
   //
-  console.log(stateUsers?.users)
   return (
     <>
-      <motion.div
+      <div
         className="p-4 overflow-x-auto relative shadow-md bg-[#f7f7f7] h-screen"
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1, transition: { duration: 0.3 } }}
-        // exit={{ opacity: 0, transition: { duration: 0.1 } }}
       >
-        <MuiModal
-          open={stateUsers?.isLoading ? true : false}
-          className="fixed top-7 left-0 right-0 z-50 mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-md scrollbar-hide"
-        >
-          <MoonLoader
-            color={"#36d7b7"}
-            loading={stateUsers?.isLoading ? true : false}
-            cssOverride={overrideupdate}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </MuiModal>
         {/* <!-- Mobile  and desktop filter dialog --> */}
         <AnimatePresence>
           {/* {toggleSidebarFilterM && */}
@@ -545,7 +528,7 @@ const ViewTableUser = () => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
       <Outlet />
     </>
   );

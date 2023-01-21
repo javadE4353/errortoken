@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Users } from "../../typeing";
 import { BASE_URL } from "../../axios/configApi";
 import { AxiosInstance } from "axios";
-import usersReducer from "../../redux/reducers/userReducer/userReducer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //fatchUsers
@@ -54,7 +53,6 @@ export const fatchUsers = createAsyncThunk(
     }
     // console.log(baseUrl);
     const response = await option.axiosPrivate.get(`${baseUrl}`);
-    console.log(response.data.data[0]);
     return {
       users: response.data.data[0],
       count: response.data.data[1].count.count,
@@ -96,7 +94,6 @@ export const fatchUpdateUsers = createAsyncThunk(
       `${BASE_URL}/users/${data.id}`,
       data.data
     );
-    console.log(data.data.get("roleuser"))
 
     if (response?.status == 200) {
       const res = await data.axiosPrivate.get(`${BASE_URL}/users`);
@@ -117,7 +114,6 @@ export const fatchInsertUsers = createAsyncThunk(
       `${BASE_URL}/users`,
       data.data
     );
-    console.log(response.data.data);
     return response.data.data;
   }
 );

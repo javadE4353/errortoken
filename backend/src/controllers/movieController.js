@@ -99,7 +99,6 @@ export const movieController = new (class MovieController {
         data: newMovie,
       });
     } catch (error) {
-      console.log(error)
       return responce({
         res,
         code: 500,
@@ -134,7 +133,6 @@ export const movieController = new (class MovieController {
   async getAllmovies(req, res) {
     try {
       const Movie = await db.Movies.findAll();
-      console.log(Movie)
       return responce({
         res,
         code: 200,

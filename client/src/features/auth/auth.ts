@@ -31,7 +31,7 @@ export const fatchLogin = createAsyncThunk(
   "auth/fatchlogin",
   async (login: LoginType) => {
     const response = await axiospublic.post(`/auth/login`, login);
-    return response.data;
+    return response.data.data;
   }
 );
 
@@ -58,7 +58,7 @@ export const fatchRefreshToken = createAsyncThunk(
   "auth/fatchRefreshToken",
   async () => {
     const response = await axiospublic.get(`/auth/refreshtoken`);
-    return response.data;
+    return response.data.data;
   }
 );
 
@@ -117,15 +117,13 @@ const loginSlice = createSlice({
         fatchLogin.fulfilled,
         (
           state,
-          action: PayloadAction<{
-            data: { accessToken: string; userInfo: Userinfo };
-          }>
+          action: PayloadAction<{ accessToken: string; userInfo: Userinfo }>
         ) => {
           state.isLoading = false;
-          state.accessToken = action.payload.data.accessToken;
-          state.userInfo = action.payload.data.userInfo;
-          state.message = action.payload.data.userInfo.username + "خوش آمدید";
-          toast( action.payload.data.userInfo.username + "خوش آمدید", {
+          state.accessToken = action.payload.accessToken;
+          state.userInfo = action.payload.userInfo;
+          state.message = action.payload.userInfo.username + "خوش آمدید";
+          toast( action.payload.userInfo.username + "خوش آمدید", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -204,14 +202,12 @@ const loginSlice = createSlice({
         fatchRefreshToken.fulfilled,
         (
           state,
-          action: PayloadAction<{
-            data: { accessToken: string; userInfo: Userinfo };
-          }>
+          action: PayloadAction<{ accessToken: string; userInfo: Userinfo }>
         ) => {
           state.isLoading = false;
           state.errorMessage = "";
-          state.accessToken = action.payload.data.accessToken;
-          state.userInfo = action.payload.data.userInfo;
+          state.accessToken = action.payload.accessToken;
+          state.userInfo = action.payload.userInfo;
         }
       )
       .addCase(fatchRefreshToken.rejected, (state, action) => {
